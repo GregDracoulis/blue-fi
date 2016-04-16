@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/GregDracoulis/blue-fi#readme",
   "dependencies": {
+    "bleno": "^0.4.0",
     "wifi-control": "^2.0.0"
   }
 }
