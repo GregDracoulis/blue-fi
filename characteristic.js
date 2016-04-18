@@ -39,8 +39,27 @@ ScanCharacteristic.prototype.onReadRequest = function(offset, callback) {
   //  Try scanning for access points:
   WiFiControl.scanForWiFi(function(err, response) {
     if (err) console.log(err);
-    console.log(response);
-    var transmitResponse = JSON.stringify(response);
+
+    var networks = response.networks;
+    // Sort networks by signal strength
+    networks.sort(function(a, b) {
+      if (a.signal_level < b.signal_level) {
+        return -1;
+      }
+      if (a.signal_level > b.signal_level) {
+        return 1;
+      }
+      return 0;
+    });
+
+    console.log(networks);
+
+    var network = response.networks[0];
+    // Add information about how many networks were found
+    network.offset = 0;
+    network.total = response.networks.length;
+
+    var transmitResponse = JSON.stringify(network);
     callback(this.RESULT_SUCCESS, new Buffer(transmitResponse, 'utf8'));
   });
 };
