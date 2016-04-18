@@ -25,7 +25,7 @@ noble.on('discover', function(peripheral) {
             console.log('found characteristic: ' + characteristic.uuid);
             if (characteristicUuid == characteristic.uuid) {
               console.log('found matching characteristic')
-              characteristic.read(function(data) {
+              characteristic.read(function(err, data) {
                 console.log(data);
                 try {
                   console.log(JSON.parse(data));
